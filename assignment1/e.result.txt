@@ -1,0 +1,30 @@
+Parsing...
+e.txt
+
+======= MOOL Program =======
+
+class Main{
+  void main(Int i,Int a,Int b,Int d){
+    While(true)
+    {
+      b=340;
+      t1=t2;
+    }
+  }
+
+} 
+
+class Dummy extends A {
+   Dummy j;
+
+  private Int dummy(){
+    Bool i;
+    Bool j;
+    Return i;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
