@@ -20,7 +20,7 @@ let varid = ['a'-'z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let classid = ['A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let charhex = ['0'-'9' 'A'-'F' 'a'-'f']
 let whitespace = [' ' '\t']
-let newline = ('\n' | '\r' | "\r\n") 
+let newline = ('\n' | '\r' | "\r\n")
 let charprintable = ['\032' - '\126']
 let stringliteral = ( 'W' 'R' 'O' 'N' 'G' '!' )   
 			
@@ -61,3 +61,5 @@ rule token file_name = parse
   | '\r' { incr_linenum file_name lexbuf; token file_name lexbuf }
   | "\r\n" { incr_linenum file_name lexbuf; token file_name lexbuf }
   | eof		{ EOF }
+
+  
