@@ -21,3 +21,7 @@ setup.log
 
 # OSX
 .DS_Store
+
+# Other
+mOOL_parser
+mOOL_parser.output

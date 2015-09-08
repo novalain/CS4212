@@ -23,7 +23,7 @@ let whitespace = [' ' '\t']
 let newline = ('\n' | '\r' | "\r\n")
 let charprintable = ['\032' - '\126']
 let stringliteral = ( 'W' 'R' 'O' 'N' 'G' '!' )   
-			
+		
 rule token file_name = parse
   | '=' 	{ ASSIGN }
   | '{'		{ OBRACE }
@@ -38,7 +38,7 @@ rule token file_name = parse
   | "class" { CLASS_KWORD }
   | "void"  { VOID_KWORD }
   | "while"	{ WHILE_KWORD }
-  | "if" 	{ IF_KWORD }
+  | "if" 	{ print_string("ok"); token file_name lexbuf}
   | "else"	{ ELSE_KWORD }
   | "return" { RETURN_KWORD }
   | "this"	{ THIS_KWORD }
@@ -46,6 +46,8 @@ rule token file_name = parse
   | "main"  { MAIN_KWORD }
   | "readln" { READ_KWORD }
   | "println" { PRINT_KWORD }
+  | "//" {comment_single file_name lexbuf} 
+  | "/*" {comment_multi 0 file_name lexbuf} 
   | ';'		{ SEMICOLON }
   | '.'		{ DOT }
   | ','		{ COMMA }
@@ -61,5 +63,24 @@ rule token file_name = parse
   | '\r' { incr_linenum file_name lexbuf; token file_name lexbuf }
   | "\r\n" { incr_linenum file_name lexbuf; token file_name lexbuf }
   | eof		{ EOF }
+
+(* The comments make their own buffer that calls itself recursively
+   until a closing tag has been found on nested level n = 0 *)
+
+and comment_multi n file_name = parse
+  | "*/" { Printf.printf "comments (%d) end\n" n;
+    if n = 0 then token file_name lexbuf
+    else comment_multi (n-1) file_name lexbuf
+  }
+  | "/*" { Printf.printf "comments (%d) start\n" (n+1);
+  comment_multi (n+1) file_name lexbuf
+  }
+  | _ { comment_multi n file_name lexbuf }
+  | eof { print_endline "multi-comments are not closed"; EOF }
+
+and comment_single file_name = parse
+  | newline {token file_name lexbuf}
+  | _ {comment_single file_name lexbuf}
+  | eof { print_endline "single-comments are not closed!"; EOF}
 
   

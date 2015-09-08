@@ -6,6 +6,12 @@ void main(Int i, Int a, Int b,Int d){
       t1 = t2 ;
    }
 }
+// THIS is a comment
+
+/* 
+   this is a 
+   multi line comment
+*/
 
 }
 
