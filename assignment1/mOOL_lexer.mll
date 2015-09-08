@@ -21,9 +21,10 @@ let classid = ['A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let charhex = ['0'-'9' 'A'-'F' 'a'-'f']
 let whitespace = [' ' '\t']
 let newline = ('\n' | '\r' | "\r\n")
-let charprintable = ['\032' - '\126']
-let stringliteral = ( 'W' 'R' 'O' 'N' 'G' '!' )   
-		
+(*let charprintable = (['\032' - '\033' '\035' - '\091' '\093' - '\127'] | "\\_")* *)
+let charprintable = ['\032' - '\127']
+let stringliteral = ("\\"charprintable | ['\032' - '\033' '\035' - '\091' '\093' - '\127'])*
+
 rule token file_name = parse
   | '=' 	{ ASSIGN }
   | '{'		{ OBRACE }
@@ -38,7 +39,7 @@ rule token file_name = parse
   | "class" { CLASS_KWORD }
   | "void"  { VOID_KWORD }
   | "while"	{ WHILE_KWORD }
-  | "if" 	{ print_string("ok"); token file_name lexbuf}
+  | "if" 	{ print_string("if"); token file_name lexbuf}
   | "else"	{ ELSE_KWORD }
   | "return" { RETURN_KWORD }
   | "this"	{ THIS_KWORD }
@@ -55,8 +56,8 @@ rule token file_name = parse
   | varid as str1		{ VAR_IDENTIFIER str1 }
   | digit+ as num
 		{ INTEGER_LITERAL (int_of_string num) }
-  |  "\""( stringliteral
-          as s) 
+  |  "\""(stringliteral
+          as s)
 	"\"" { STRING_LITERAL s }
   | whitespace { token file_name lexbuf }
   | '\n' { incr_linenum file_name lexbuf; token file_name lexbuf }
@@ -66,7 +67,6 @@ rule token file_name = parse
 
 (* The comments make their own buffer that calls itself recursively
    until a closing tag has been found on nested level n = 0 *)
-
 and comment_multi n file_name = parse
   | "*/" { Printf.printf "comments (%d) end\n" n;
     if n = 0 then token file_name lexbuf
