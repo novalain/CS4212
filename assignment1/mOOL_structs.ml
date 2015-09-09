@@ -149,7 +149,7 @@ let string_of_mOOL_type (e:mOOL_type):string =
     | IntT -> "Int"
 	| BoolT -> "Bool"
     | StringT -> "String"
-	| VoidT -> "void"
+	| VoidT -> "Void"
 	| ObjectT c -> c
 	| Unknown -> ""
 	

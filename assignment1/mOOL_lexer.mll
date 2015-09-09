@@ -22,8 +22,11 @@ let charhex = ['0'-'9' 'A'-'F' 'a'-'f']
 let whitespace = [' ' '\t']
 let newline = ('\n' | '\r' | "\r\n")
 (*let charprintable = (['\032' - '\033' '\035' - '\091' '\093' - '\127'] | "\\_")* *)
-let charprintable = ['\032' - '\127']
-let stringliteral = ("\\"charprintable | ['\032' - '\033' '\035' - '\091' '\093' - '\127'])*
+let charprintable = ['\032' - '\126']
+
+(* Escaped character followed by anything, or whatever character
+   that does not include doublequotes or backslash *)
+let stringliteral = ("\\"charprintable | ['\032' - '\033' '\035' - '\091' '\093' - '\126'])*
 
 rule token file_name = parse
   | '=' 	{ ASSIGN }
@@ -37,7 +40,7 @@ rule token file_name = parse
   | "true"	{ TRUE_KWORD }
   | "false"	{ FALSE_KWORD }
   | "class" { CLASS_KWORD }
-  | "void"  { VOID_KWORD }
+  | "Void"  { VOID_KWORD }
   | "while"	{ WHILE_KWORD }
   | "if" 	{ print_string("if"); token file_name lexbuf}
   | "else"	{ ELSE_KWORD }

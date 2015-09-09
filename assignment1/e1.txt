@@ -7,7 +7,7 @@
 
 class Main {
 
-void main(Int i, Int a, Int b,Int d){
+Void main(Int i, Int a, Int b,Int d){
  Int t1;
  Int t2;
  Compute help;
