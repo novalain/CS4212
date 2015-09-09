@@ -21,7 +21,6 @@ let classid = ['A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let charhex = ['0'-'9' 'A'-'F' 'a'-'f']
 let whitespace = [' ' '\t']
 let newline = ('\n' | '\r' | "\r\n")
-(*let charprintable = (['\032' - '\033' '\035' - '\091' '\093' - '\127'] | "\\_")* *)
 let charprintable = ['\032' - '\126']
 
 (* Escaped character followed by anything, or whatever character
@@ -29,7 +28,20 @@ let charprintable = ['\032' - '\126']
 let stringliteral = ("\\"charprintable | ['\032' - '\033' '\035' - '\091' '\093' - '\126'])*
 
 rule token file_name = parse
-  | '=' 	{ ASSIGN }
+  | "||" { LOGICAL_OR }
+  | "&&" { LOGICAL_AND }
+  | "<=" { LESS_EQUAL }
+  | ">=" { GREATER_EQUAL }
+  | "==" { EQUAL }
+  | "!=" { INEQUAL }
+  | '<' { LESS }
+  | '>' { GREATER }
+  | '=' { ASSIGN }
+  | '+' { PLUS }
+  | '-' { MINUS }
+  | '*' { MULTIPLY }
+  | '/' { DIVIDE }
+  | '!' { NAGATE }
   | '{'		{ OBRACE }
   | '}'		{ CBRACE }
   | '('		{ OPAREN }
@@ -37,12 +49,12 @@ rule token file_name = parse
   | "Int"	{ INT_KWORD}
   | "Bool"	{ BOOL_KWORD}
   | "String" { STRING_KWORD}
+  | "Void"  { VOID_KWORD }
   | "true"	{ TRUE_KWORD }
   | "false"	{ FALSE_KWORD }
   | "class" { CLASS_KWORD }
-  | "Void"  { VOID_KWORD }
   | "while"	{ WHILE_KWORD }
-  | "if" 	{ print_string("if"); token file_name lexbuf}
+  | "if" 	{ IF_KWORD }
   | "else"	{ ELSE_KWORD }
   | "return" { RETURN_KWORD }
   | "this"	{ THIS_KWORD }

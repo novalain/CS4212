@@ -28,6 +28,21 @@
 /* =========== Definitions of tokens =========== */
 
 %token ASSIGN
+%token PLUS
+%token MINUS
+%token MULTIPLY
+%token DIVIDE
+%token NAGATE
+%token LOGICAL_OR
+%token LOGICAL_AND
+
+%token LESS
+%token GREATER
+%token LESS_EQUAL
+%token GREATER_EQUAL
+%token EQUAL
+%token INEQUAL
+
 %token INT_KWORD 
 %token BOOL_KWORD STRING_KWORD 
 %token VOID_KWORD
@@ -219,11 +234,73 @@ non_zero_stmt_list:
 
 
 /* === Rule for defining the different types of expressions in a method body ===*/
-
+/*
 exp:
     atom        { $1 }
+;*/
+
+exp : 
+	bexp {$1}
+	| aexp {$1} 
+	| sexp {$1}
+	| atom {$1} 
 ;
 
+bgrd :
+	NAGATE bgrd { UnaryExp(UnaryOp("!"), $2)}
+	| TRUE_KWORD { BoolLiteral(true)}
+	| FALSE_KWORD { BoolLiteral(false) }
+	| atom { $1 }
+;
+
+bexp :
+	bexp LOGICAL_OR conj { BinaryExp(BooleanOp("||"), $1, $3) }
+	| conj {$1}
+;
+
+conj :
+	conj LOGICAL_AND rexp { BinaryExp(BooleanOp("&&"), $1, $3)}
+	| rexp {$1}
+;
+
+rexp :
+	aexp bop aexp {BinaryExp($2, $1, $3)}
+	| bgrd {$1}
+;
+
+bop: 
+	LESS_EQUAL { RelationalOp("<=") }
+	| GREATER_EQUAL { RelationalOp(">=") }
+	| LESS { RelationalOp("<") }
+	| GREATER { RelationalOp(">")}
+	| EQUAL { RelationalOp("==") }
+	| INEQUAL { RelationalOp("!=") }
+;
+
+aexp :
+	aexp PLUS term { BinaryExp(AritmeticOp("+"), $1, $3) }
+	| aexp MINUS term { BinaryExp(AritmeticOp("-"), $1, $3) }
+	| term { $1 }
+;
+
+sexp : 
+	STRING_LITERAL { StringLiteral($1) }
+	| atom { $1 }
+;
+
+term : 
+	term MULTIPLY ftr { BinaryExp(AritmeticOp("*"), $1, $3)}
+	| term DIVIDE ftr { BinaryExp(AritmeticOp("/"), $1, $3)}
+	| ftr {$1}
+;
+
+ftr : 
+	INTEGER_LITERAL { IntLiteral($1) }
+	| MINUS ftr { UnaryExp(UnaryOp("-"), $2) }
+	| atom { $1 }
+;
+
+/* Is this valid ? */
 atom:
 	atom DOT var_id_rule 		{ FieldAccess ( $1, $3) }
         | TRUE_KWORD 	                { BoolLiteral (true) }
