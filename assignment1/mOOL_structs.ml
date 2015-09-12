@@ -54,7 +54,6 @@ type mOOL_exp =
     (* Reserved for type checking. Please do not instantiate during parsing *)
   | TypedExp of mOOL_exp * mOOL_type 
 
-
 and mOOL_stmt = 
 	| IfStmt of mOOL_exp * (mOOL_stmt list) * (mOOL_stmt list)
 	| WhileStmt of mOOL_exp * (mOOL_stmt list)
@@ -95,7 +94,7 @@ and md_decl =
 
 and attr_decl = (modifier * var_decl)
 
-and class_decl = class_name * class_name option *(attr_decl list) * (md_decl list)
+and class_decl = class_name * class_name option * (attr_decl list) * (md_decl list)
 
 (* Ocaml Tuple Type representing a mOOL main class declaration *)
 and class_main = class_name * md_decl

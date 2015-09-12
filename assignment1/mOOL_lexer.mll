@@ -46,6 +46,10 @@ rule token file_name = parse
   | '}'		{ CBRACE }
   | '('		{ OPAREN }
   | ')'		{ CPAREN }
+  | "super" { SUPER_KWORD }
+  | "private" { PRIVATE_KWORD }
+  | "extends" { EXTENDS_KWORD }
+  | "new" { NEW_KWORD }
   | "Int"	{ INT_KWORD}
   | "Bool"	{ BOOL_KWORD}
   | "String" { STRING_KWORD}
