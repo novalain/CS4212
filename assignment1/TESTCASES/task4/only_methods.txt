@@ -1,0 +1,32 @@
+class MyClass {
+
+    Void main () {
+
+        Food food;
+        food = new Food();
+
+	} 
+}
+
+class Food {
+
+	// This doesn't really make sense..
+    
+    private Fruit getNewFruit(){
+
+    	return new Fruit();
+
+    }
+
+    private Pizza getNewPizza(){
+
+    	return new Pizza();
+    }
+
+    private Burger getNewBurger(){
+
+    	return new Burger();
+
+    }
+
+}

@@ -1,0 +1,50 @@
+class MyClass {
+    Void main () {
+
+        Bool b;
+        Bool b2;
+        Bool b3;
+
+        Int first;
+        Int second;
+        Int third;
+
+        b = true;
+        b2 = false;
+        b3 = true;
+
+
+        while(true && first < second && second >= first){
+
+            if( (b1 && b2) || (b1 || b2) ) {
+
+                if( (first != second) && first >= second && second == second ) {
+
+                    return (first >= 5 ) && (second <= 3) || first <= 20;
+
+                } else {
+                    
+                    return (first >= 5 ) && (second <= 3) || first <= 20 && (first >= 5 ) && (second <= 3) || first != 2;
+
+                }
+
+            } else {
+
+                if( (b1 && b2) || (b1 || b2) && b1 && b3 || (b4 || b5) && !b1 && !b2 && !b3 && !b4){
+
+                    b = false;
+
+                } else {
+
+                    b = true;
+
+                }
+
+                
+            }
+
+
+        }
+
+	} 
+}

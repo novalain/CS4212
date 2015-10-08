@@ -1,0 +1,45 @@
+class MyClass {
+
+    Void main () {
+
+        Food food;
+        food = new Food();
+
+	} 
+}
+
+class Food {
+
+    private Fruit fruit;
+    private Pizza pizza;
+    private Burger burger;
+    
+    private Fruit getFruit(){
+
+    	return fruit;
+
+    }
+
+    private Pizza getPizza(){
+
+    	return pizza;
+    }
+
+    private Burger getBurger(){
+
+        return burger;
+
+    }
+
+    private Fruit setPizza(Pizza p){
+
+        pizza = p;
+
+    }
+
+    private Fruit setBurger(Burger b){
+
+        burger = b;
+
+    }
+}

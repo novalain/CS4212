@@ -8,8 +8,7 @@ class Factorial {
 
 }
 
-
-class Fac extends Factorial{
+class Fac {
 
 /* This is the factorial function that is not written
    in tail-recursive manner. (A tail recursive factorial
@@ -19,32 +18,11 @@ class Fac extends Factorial{
    could you attempt to optimize it so that it can run faster?
 */
 
-  private Int a;
-  private Int b;
-  private String c;
-
-  // This variable is public
-  Int num;
-
-  private Int computeFac(Int a){
+  Int computeFac(Int num){
 
     Int num_aux;
 
-    if(num<1) { // shouldn’t it be num <= 1? 
-      num_aux = 1 ;
-    }
-    else {
-      num_aux = num * (this.computeFac(num-1)) ;
-    }
-        
-    return num_aux ;
-  }
-
-  Int computeFac(Int a){
-
-    Int num_aux;
-
-    if(num<1) { // shouldn’t it be num <= 1? 
+    if(num < 1) { // shouldn’t it be num <= 1? 
       num_aux = 1 ;
     }
     else {
