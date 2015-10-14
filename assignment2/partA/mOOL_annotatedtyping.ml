@@ -44,9 +44,9 @@ let rec check_for_unique_class_name
       if (List.exists (fun (n) ->
             String.compare cname n == 0)
           (get_class_names tail)) (* Checks if cname exists in the list of all classes - cname*)
-        then Some cname (*there are duplicates.*)
+        then failwith ("Duplicated names, " ^ cname ^ " is a duplicate") (*there are duplicates.*)
       else check_for_unique_class_name tail
-  | [] -> None
+  | [] -> ()
 
 (* For debugging a list *)
 let print_list lst = 
@@ -89,13 +89,55 @@ let rec check_inheritance
            (let new_list = prev_decl_classes@[cname]; in check_inheritance tail new_list)
         else failwith("No class to extend..")
       | None -> let new_list = prev_decl_classes@[cname]; in check_inheritance tail new_list)
-  | [] -> None
+  | [] -> ()
 
 (*
 let add_to_class (a_list : string list) = 
   let new_list = "MDEO" :: a_list; in print_list(new_list)*)
 (*aaaaaaa
 a aaaaaa*)
+
+let rec check_for_distinct_parameters_method (class_decl_list:class_decl list) = 
+  match class_decl_list with 
+    (_,_,_,md_list) :: tail ->
+      let rec helper list_of_md_in_class = 
+        match list_of_md_in_class with 
+          head :: tail2 -> 
+            let rec helper2 var_decl_list prev_decl_vars  = 
+              match var_decl_list with 
+              (_, var_decl) :: tail3 -> 
+                (match var_decl with
+                 var_id -> 
+                  if( List.exists (fun (n) -> compare_var_ids var_id n ) (prev_decl_vars) ) then
+                  failwith(string_of_var_id(var_id) ^ " is not a unique method parameter in method " ^ string_of_var_id head.mOOLid)
+                  else let new_list = var_id :: prev_decl_vars in helper2 tail3 new_list)
+              | [] -> helper tail2 (* proceed back *)
+            in helper2 head.params []
+          (* Empty method list, proceeed back*)
+          | [] -> check_for_distinct_parameters_method tail
+      in helper md_list
+    | [] -> ()
+
+let rec check_for_distinct_local_vars_method (class_decl_list:class_decl list) = 
+  match class_decl_list with 
+    (_,_,_,md_list) :: tail ->
+      let rec helper list_of_md_in_class = 
+        match list_of_md_in_class with 
+          head :: tail2 -> 
+            let rec helper2 var_decl_list prev_decl_vars  = 
+              match var_decl_list with 
+              (_, var_decl) :: tail3 -> 
+                (match var_decl with
+                 var_id -> 
+                  if( List.exists (fun (n) -> compare_var_ids var_id n ) (prev_decl_vars) ) then
+                  failwith(string_of_var_id(var_id) ^ " is not a unique local variable in method " ^ string_of_var_id head.mOOLid)
+                  else let new_list = var_id :: prev_decl_vars in helper2 tail3 new_list)
+              | [] -> helper tail2 (* proceed back *)
+            in helper2 head.localvars []
+          (* Empty method list, proceeed back*)
+          | [] -> check_for_distinct_local_vars_method tail
+      in helper md_list
+    | [] -> ()
 
 let rec check_for_distinct_scopes (class_decl_list:class_decl list) = 
   match class_decl_list with 
@@ -119,12 +161,12 @@ let type_check_mOOL_program
   (p:mOOL_program) : mOOL_program = 
     match p with
     | (main_class, s) ->
-      match (check_for_unique_class_name s) with
-      Some a -> failwith ("Duplicated names, " ^ a ^ " is a duplicate")
-      | None -> 
-        match(check_inheritance s []) with
-        Some err -> failwith err
-        | None -> check_for_distinct_scopes s; p 
+      check_for_unique_class_name s;
+      check_inheritance s [];
+      check_for_distinct_scopes s; 
+      check_for_distinct_parameters_method s;
+      check_for_distinct_local_vars_method s;
+      p
 
         (*match( check_for_inheritance_cycles s (get_class_names(s)) (get_all_parents(s))) with
         Some a -> failwith(a); 

@@ -40,7 +40,19 @@ class O extends A {
   
   Int b;
   Int j;
-  Int b;
+
+
+  Int testfunc(String funkarDettaAreNuice, Int jada){
+
+    DummyP a; 
+    Dummy d;
+
+    d = (Dummy)a;
+    // d = a;
+    a = (DummyP) d;
+    return 1; 
+
+  }
 
 }
 
@@ -64,7 +76,18 @@ class DummyP2 {
    }    
   }
 
-  Int getCompute() {
+  Int getCompute(Int a, String b, Int hej, Int tja) {
+   DummyP a; 
+   Dummy d;
+   Dummy okay;
+
+   d = (Dummy)a;
+   // d = a;
+   a = (DummyP) d;
+   return 1; 
+  }
+
+  Int getCompute(Int looool, Int haaaaj) {
    DummyP a; 
    Dummy d;
 
