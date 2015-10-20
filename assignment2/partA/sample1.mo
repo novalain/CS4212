@@ -8,15 +8,22 @@ Void main(){
 }
 
 
-class A{
+class C {
+    Int hej;
 
+}
+
+class A extends C{
+
+  
  Int t1;
  Int t2;
  Bool b1;
+ C lol;
  Void method1(){
  
-	Int a;
-	return;
+  Int a;
+  return;
  }
 
  Int test_method1(Int c){
@@ -25,7 +32,7 @@ class A{
          return t1 ;
      }
      else { c = t2 ; }
-     while (c > 4+t1) {
+     while (c > 4+t1+lol.hej) {
          c = c + 1 ;
      }
      return t1;
@@ -51,12 +58,12 @@ class B extends A{
 
        t.method1();
        if(b>0){
-	t.test_method1(b);
-	}
-	else{
-	  method1();
-	}
-       t=new B();
+        t.test_method1(b);
+  }
+  else{
+    method1();
+  }
+       //t=new B();
        ((B)t).method1();
        method1(3);
        b = a + 1 - s1 * t1;

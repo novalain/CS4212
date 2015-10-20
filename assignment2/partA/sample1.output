@@ -126,7 +126,7 @@ class A{
 }
 class B extends A {
    Int t1;
-   Int s1;
+   Int lodare;
 
   Void method1(){
     Int b;

@@ -131,7 +131,7 @@ let string_of_list lst func delim  =
 let string_of_indented_stmt_list s f xs = 
 	let stmtBegin = print_tab() ^ "{\n" in
 	let indentI = indent_inc() in
-	let stmtList = String.concat s (List.map f xs)in 
+	let stmtList = String.concat s (List.map f xs) in 
 	let indentD = indent_dec() in 
 	let stmtEnd = "\n" ^ print_tab() ^ "}" in 
 		stmtBegin ^ indentI ^ stmtList ^ indentD ^ stmtEnd
