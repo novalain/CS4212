@@ -1,0 +1,150 @@
+class MyClass {
+
+    Void main () {
+
+        HorrorGame myHorrorGame;
+        myHorrorGame = new HorrorGame();
+        return;
+    } 
+}
+
+class Player{
+    
+    String playerName;
+
+    Void update(){
+
+        // make updates to the player
+        return;
+    }
+
+    Void render(){
+
+        // render the player 
+        return;
+    }
+
+}
+
+
+class Game {
+
+    Player player;
+    
+    Void initPlayer(){
+
+        player = new Player();
+        return;
+    }
+
+    Void update(){
+
+        player.update();
+        player.render();
+        return;
+    }
+
+    Void gameLoop(){
+
+        return;
+    }
+
+}
+
+
+class Zombie{
+    
+    String zombieName;
+
+}
+
+class Virus {
+    
+    String virusName;
+    Int virusLevel;
+
+    Void setVirus() {
+        virusName = "XXXXX";
+        virusLevel = 5;
+        return;
+    }
+
+    // Overloading 
+    Void setVirus(Int x){
+
+        virusName = "XXXXX";   
+        virusLevel = x;
+        return;
+
+    }
+
+    // Can't have the same signature and different return type 
+    /*Int setVirus(Int x){ 
+
+        virusName = "XXXXX";   
+        virusLevel = x;
+        return x;
+
+    }*/
+
+     // Overriding, same name, same signature, same return type
+    Void setVirus(Int x){ 
+        return;
+    }   
+
+}
+
+
+class CureIngredients {
+    
+    Int x;
+    Int y;
+    Int z;
+}
+
+class Cure extends CureIngredients{
+    
+    String cureName;
+    Int cureCost;
+
+    Void setCure(){
+        cureName = "theAlmightyCure";
+
+        x = 5; /* We can still set these values,
+                Since they are inherited */
+        y = 10;
+        z = 20;
+
+        cureCost = x + y + z; // cure costs as sum of ingredients
+        
+        // u = 50;  But this one is going to fail
+
+        return;
+    }
+
+
+
+}
+
+
+class HorrorGame{
+
+    Zombie zombie;
+
+    Void initWorld(Zombie z, Virus v, Cure c) {
+
+        Int tmp;
+        String name;
+
+        c.setCure();
+
+        tmp = c.cureCost; // Member access
+        // name = c.cureCost This one is going to fail, string cant be converted to int
+
+        zombie = z;
+        
+        return;
+
+    }
+
+}

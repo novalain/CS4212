@@ -1,0 +1,234 @@
+======= MOOL Program =======
+
+class Main{
+  Void main(){
+    HorrorGame myHorrorGame;
+    myHorrorGame=new HorrorGame();
+    [myHorrorGame.initWorld(new Zombie(),new Virus(),new Cure())];
+    [myHorrorGame.startHorrorGame()];
+  }
+
+}
+
+class Zombie{
+   String zombieName;
+
+
+}
+class Virus{
+   String virusName;
+  private Int virusLevel;
+
+  Void setVirus(){
+    virusName="XXXXX";
+    virusLevel=5;
+    Return;
+  }
+
+}
+class CureIngredients{
+   Int x;
+   Int y;
+   Int z;
+
+
+}
+class Cure extends CureIngredients {
+   String cureName;
+   Int cureCost;
+
+  Void setCure(){
+    cureName="theAlmightyCure";
+    x=5;
+    y=10;
+    z=20;
+    cureCost=[[x,y](+),z](+);
+    Return;
+  }
+
+}
+class Player{
+   String playerName;
+
+  Void update(){
+    Return;
+  }
+
+
+  Void draw(){
+    Return;
+  }
+
+}
+class Game{
+  private Player player;
+
+  Void update(){
+    [player.update()];
+  }
+
+
+  Void render(){
+    [player.draw()];
+  }
+
+
+  private Void gameLoop(){
+    While(true)
+    {
+      [update()];
+      [render()];
+    }
+  }
+
+
+  Player setPlayer(Player p){
+    player=new Player();
+  }
+
+
+  Player getPlayer(){
+    Return player;
+  }
+
+}
+class HorrorGame extends Game {
+   Zombie zombie;
+   Virus virus;
+   Cure cure;
+
+  Void initWorld(Zombie z,Virus v,Cure c){
+    [super.setPlayer(new Player())];
+    zombie=z;
+    virus=v;
+    cure=c;
+    Return;
+  }
+
+
+  Void startHorrorGame(){
+    Return;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
+Static Checking...
+
+======= MOOL Program =======
+
+class Main{
+  Void main(){
+    HorrorGame myHorrorGame;
+    (myHorrorGame:HorrorGame,2)=new HorrorGame():HorrorGame;
+    [(myHorrorGame:HorrorGame,2):HorrorGame.initWorld:HorrorGame(new Zombie():Zombie,new Virus():Virus,new Cure():Cure)]:Void;
+    [(myHorrorGame:HorrorGame,2):HorrorGame.startHorrorGame:HorrorGame()]:Void;
+  }
+
+}
+
+class Zombie{
+   String zombieName;
+
+
+}
+class Virus{
+   String virusName;
+  private Int virusLevel;
+
+  Void setVirus(){
+    (virusName:String,1)="XXXXX":String;
+    (virusLevel:Int,1)=5:Int;
+    Return;
+  }
+
+}
+class CureIngredients{
+   Int x;
+   Int y;
+   Int z;
+
+
+}
+class Cure extends CureIngredients {
+   String cureName;
+   Int cureCost;
+
+  Void setCure(){
+    (cureName:String,1)="theAlmightyCure":String;
+    (x:Int,1)=5:Int;
+    (y:Int,1)=10:Int;
+    (z:Int,1)=20:Int;
+    (cureCost:Int,1)=[[(x:Int,1):Int,(y:Int,1):Int](+):Int,(z:Int,1):Int](+):Int;
+    Return;
+  }
+
+}
+class Player{
+   String playerName;
+
+  Void update(){
+    Return;
+  }
+
+
+  Void draw(){
+    Return;
+  }
+
+}
+class Game{
+  private Player player;
+
+  Void update(){
+    [(player:Player,1):Player.update:Player()]:Void;
+  }
+
+
+  Void render(){
+    [(player:Player,1):Player.draw:Player()]:Void;
+  }
+
+
+  private Void gameLoop(){
+    While(true:Bool)
+    {
+      [update:Game()]:Void;
+      [render:Game()]:Void;
+    }
+  }
+
+
+  Player setPlayer(Player p){
+    (player:Player,1)=new Player():Player;
+  }
+
+
+  Player getPlayer(){
+    Return (player:Player,1):Player;
+  }
+
+}
+class HorrorGame extends Game {
+   Zombie zombie;
+   Virus virus;
+   Cure cure;
+
+  Void initWorld(Zombie z,Virus v,Cure c){
+    [super:Game.setPlayer:Game(new Player():Player)]:Player;
+    (zombie:Zombie,1)=(z:Zombie,2):Zombie;
+    (virus:Virus,1)=(v:Virus,2):Virus;
+    (cure:Cure,1)=(c:Cure,2):Cure;
+    Return;
+  }
+
+
+  Void startHorrorGame(){
+    Return;
+  }
+
+}
+
+======= End of MOOL Program =======

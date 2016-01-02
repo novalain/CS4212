@@ -1,0 +1,251 @@
+Parsing...
+test_type.mo
+
+======= MOOL Program =======
+
+class Main{
+  void main(){
+    Int a;
+    Int b;
+    TestSon ts;
+    Test t;
+    TestGrandson tgs;
+    Test new_t;
+    t=ts;
+    t=tgs;
+    new_t=new TestSon();
+    ts=(TestSon)new_t;
+    a=tgs.pu;
+    ts=new TestSon();
+    [ts.test2(ts)];
+    Return;
+  }
+
+} 
+
+class Test{
+  private Int priTest;
+
+  Int test(){
+    Int a;
+    TestSon ts;
+    Test t;
+    ts=new TestSon();
+    [ts.test2(ts)];
+    a=priTest;
+    priTest=a;
+    a=t.priTest;
+    a=0;
+    Return 0;
+  }
+
+}
+class TestSon extends Test {
+  private Int priTestSon;
+
+  Int test2(Test t){
+    Int a;
+    TestSon ts;
+    [(TestSon)t.priTestSon(t)];
+    [ts.priTestSon(t)];
+    [priTestSon(t)];
+    Return a;
+  }
+
+
+  private Int priTestSon(Test t){
+    Int b;
+    b=[b,1](+);
+    Return b;
+  }
+
+}
+class TestGrandson extends TestSon {
+  private Int pr;
+   Int pu;
+
+  void test3(){
+    Int b;
+    Return;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
+======= MOOL Program =======
+
+class Main{
+  void main(){
+    Int a;
+    Int b;
+    TestSon ts;
+    Test t;
+    TestGrandson tgs;
+    Test new_t;
+    (t:Test,2)=(ts:TestSon,2):TestSon;
+    (t:Test,2)=(tgs:TestGrandson,2):TestGrandson;
+    (new_t:Test,2)=new TestSon():TestSon;
+    (ts:TestSon,2)=(TestSon)(new_t:Test,2):Test:TestSon;
+    (a:Int,2)=(tgs:TestGrandson,2):TestGrandson.pu:Int;
+    (ts:TestSon,2)=new TestSon():TestSon;
+    [(ts:TestSon,2):TestSon.test2((ts:TestSon,2):TestSon)]:Int;
+    Return;
+  }
+
+} 
+
+class Test{
+  private Int priTest;
+
+  Int test(){
+    Int a;
+    TestSon ts;
+    Test t;
+    (ts:TestSon,2)=new TestSon():TestSon;
+    [(ts:TestSon,2):TestSon.test2((ts:TestSon,2):TestSon)]:Int;
+    (a:Int,2)=(priTest:Int,1):Int;
+    (priTest:Int,1)=(a:Int,2):Int;
+    (a:Int,2)=(t:Test,2):Test.priTest:Int;
+    (a:Int,2)=0:Int;
+    Return 0:Int;
+  }
+
+}
+class TestSon extends Test {
+  private Int priTestSon;
+
+  Int test2(Test t){
+    Int a;
+    TestSon ts;
+    [(TestSon)(t:Test,2):Test:TestSon.priTestSon((t:Test,2):Test)]:Int;
+    [(ts:TestSon,2):TestSon.priTestSon((t:Test,2):Test)]:Int;
+    [priTestSon((t:Test,2):Test)]:Int;
+    Return (a:Int,2):Int;
+  }
+
+
+  private Int priTestSon(Test t){
+    Int b;
+    (b:Int,2)=[(b:Int,2):Int,1:Int](+):Int;
+    Return (b:Int,2):Int;
+  }
+
+}
+class TestGrandson extends TestSon {
+  private Int pr;
+   Int pu;
+
+  void test3(){
+    Int b;
+    Return;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
+======= IR3 Program =======
+
+======= Class3 ======= 
+
+class Main{
+parent:None;
+
+----meth table----
+  (main,main)}
+
+class TestGrandson{
+parent:TestSon;
+  Int priTest;
+  Int priTestSon;
+  Int pr;
+  Int pu;
+
+----meth table----
+  (test,Test_0);
+  (test2~Test,TestSon_0);
+  (priTestSon~Test,TestSon_1);
+  (test3,TestGrandson_0);
+}
+
+class TestSon{
+parent:Test;
+  Int priTest;
+  Int priTestSon;
+
+----meth table----
+  (test,Test_0);
+  (test2~Test,TestSon_0);
+  (priTestSon~Test,TestSon_1);
+}
+
+class Test{
+parent:None;
+  Int priTest;
+
+----meth table----
+  (test,Test_0);
+}
+
+=======  CMtd3 ======= 
+
+void main(Main this){
+  Int a;
+  Int b;
+  TestSon ts;
+  Test t;
+  TestGrandson tgs;
+  Test new_t;
+  t=ts;
+  t=tgs;
+  new_t=new TestSon();
+  ts=(TestSon)new_t;
+  a=tgs.pu;
+  ts=new TestSon();
+  [ts.test2~TestSon(ts,ts)];
+  Return;
+}
+
+void TestGrandson_0(TestGrandson this){
+  Int b;
+  Return;
+}
+
+Int TestSon_0(TestSon this,Test t){
+  Int a;
+  TestSon ts;
+  TestSon _t2;
+  _t2=(TestSon)t;
+  [_t2.priTestSon~Test(_t2,t)];
+  [ts.priTestSon~Test(ts,t)];
+  [this.priTestSon~Test(this,t)];
+  Return a;
+}
+
+Int TestSon_1(TestSon this,Test t){
+  Int b;
+  b=[b,1](+);
+  Return b;
+}
+
+Int Test_0(Test this){
+  Int a;
+  TestSon ts;
+  Test t;
+  Int _t1;
+  ts=new TestSon();
+  [ts.test2~TestSon(ts,ts)];
+  a=this.priTest;
+  this.priTest=a;
+  a=t.priTest;
+  a=0;
+  _t1=0;
+  Return _t1;
+}
+
+======= End of IR3 Program =======
+
+

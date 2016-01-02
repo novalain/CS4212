@@ -1,0 +1,136 @@
+class Main {
+
+    Void main () {
+
+        HorrorGame myHorrorGame;
+        myHorrorGame = new HorrorGame();
+        myHorrorGame.initWorld(new Zombie(), new Virus(), new Cure());
+        myHorrorGame.startHorrorGame();
+
+    } 
+}
+
+class Zombie{
+    
+    String zombieName;
+
+}
+
+class Virus {
+    
+    String virusName;
+    private Int virusLevel;
+
+    Void setVirus() {
+        virusName = "XXXXX";
+        virusLevel = 5;
+        return;
+    }
+
+}
+
+
+class CureIngredients {
+    
+    Int x;
+    Int y;
+    Int z;
+
+}
+
+class Cure extends CureIngredients{
+    
+    String cureName;
+    Int cureCost;
+
+    Void setCure(){
+        cureName = "theAlmightyCure";
+
+        x = 5; /* We can still set these values,
+                Since they are inherited */
+        y = 10;
+        z = 20;
+
+        cureCost = x + y + z; // cure costs as sum of ingredients
+        
+        // u = 50;  But this one is going to fail
+
+        return;
+    }
+}
+
+
+class Player{
+    
+    String playerName;
+
+    Void update(){
+        return;
+    }
+
+    Void draw(){
+
+        return;
+    }
+
+}
+
+class Game {
+    
+    private Player player;
+
+    Void update(){
+        player.update();
+    }
+
+    Void render(){
+        player.draw();
+    }
+
+    private Void gameLoop(){
+
+        while(true){
+            update();
+            render();
+        }
+
+    }
+
+    Player setPlayer(Player p){
+        player = new Player();
+    }
+
+    Player getPlayer(){
+
+        return player;
+    }
+
+}
+
+
+class HorrorGame extends Game{
+
+    // These are still public
+    Zombie zombie;
+    Virus virus;
+    Cure cure;
+
+    Void initWorld(Zombie z, Virus v, Cure c) {
+        super.setPlayer(new Player()); // Here we call the superclass to set player
+        //super.setPlayer(new Virus()); //  This will fail since we can't call the function with this kind of type 
+       
+        // super.gameLoop(); // This will fail since the gameLoop is declared private
+
+        zombie = z;
+        virus = v;
+        cure = c;
+        return;
+    }
+
+    Void startHorrorGame(){
+
+        return;
+
+    }
+
+}

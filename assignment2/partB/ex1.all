@@ -1,0 +1,178 @@
+Parsing...
+ex1.mo
+
+======= MOOL Program =======
+
+class Main{
+  Void main(Int i,Int a,Int b,Int d){
+    Int t1;
+    Int t2;
+    Return;
+  }
+
+} 
+
+class DummyP{
+   Int i;
+
+
+}
+class Dummy extends DummyP {
+   Int j;
+
+  private Int dummy(){
+    Bool i;
+    Bool j;
+    If([i,j](||))
+    {
+      Return 1;
+    }
+    else
+    {
+      While(i)
+      {
+        i=(!)[j];
+      }
+      Return 2;
+    }
+  }
+
+
+  Int getCompute(){
+    DummyP a;
+    Dummy d;
+    d=(Dummy)a;
+    a=(DummyP)d;
+    Return 1;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
+Static Checking...
+
+======= MOOL Program =======
+
+class Main{
+  Void main(Int i,Int a,Int b,Int d){
+    Int t1;
+    Int t2;
+    Return;
+  }
+
+} 
+
+class DummyP{
+   Int i;
+
+
+}
+class Dummy extends DummyP {
+   Int j;
+
+  private Int dummy(){
+    Bool i;
+    Bool j;
+    If([(i:Bool,2):Bool,(j:Bool,2):Bool](||):Bool)
+    {
+      Return 1:Int;
+    }
+    else
+    {
+      While((i:Bool,2):Bool)
+      {
+        (i:Bool,2)=(!)[(j:Bool,2):Bool]:Bool;
+      }
+      Return 2:Int;
+    }
+  }
+
+
+  Int getCompute(){
+    DummyP a;
+    Dummy d;
+    (d:Dummy,2)=(Dummy)(a:DummyP,2):DummyP:Dummy;
+    (a:DummyP,2)=(DummyP)(d:Dummy,2):Dummy:DummyP;
+    Return 1:Int;
+  }
+
+}
+
+======= End of MOOL Program =======
+
+
+IR3 Code Generation...
+
+======= IR3 Program =======
+
+======= Class3 ======= 
+
+class3 Main{
+parent:None;
+
+----meth table----
+  (main~Int~Int~Int~Int,main)}
+
+class3 Dummy{
+parent:DummyP;
+  Int i;
+  Int j;
+
+----meth table----
+  (dummy,_Dummy_0);
+  (getCompute,_Dummy_1);
+}
+
+class3 DummyP{
+parent:None;
+  Int i;
+
+----meth table----
+;
+}
+
+=======  CMtd3 ======= 
+
+void main(Main this,Int i,Int a,Int b,Int d){
+  Int t1;
+  Int t2;
+  Return;
+}
+
+Int _Dummy_0(Dummy this){
+  Bool i;
+  Bool j;
+  Bool _t1;
+  Int _t2;
+  Int _t3;
+  _t1=[i,j](||);
+  If([_t1,false](==)) goto 3;
+  _t2=1;
+  Return _t2;
+  goto 4;
+ Label 3:
+ Label 1:
+  If((!)[i]) goto 2;
+  i=(!)[j];
+  goto 1;
+ Label 2:
+  _t3=2;
+  Return _t3;
+ Label 4:
+}
+
+Int _Dummy_1(Dummy this){
+  DummyP a;
+  Dummy d;
+  Int _t4;
+  d=(Dummy)a;
+  a=(DummyP)d;
+  _t4=1;
+  Return _t4;
+}
+
+======= End of IR3 Program =======
+
+
