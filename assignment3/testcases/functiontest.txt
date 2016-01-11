@@ -1,0 +1,50 @@
+/* Hello world in mOOI */ 
+
+class Main {
+
+    void main(){
+    
+        String s;
+        Int res;
+        SomeClass tmp;
+        Int add;
+        Int x;
+        Int result;
+        res = 21;
+        x = 16;
+
+        add = 21 + 16;
+
+        //String s1;
+        //s1 = "hello";
+
+        result = tmp.computeSomething(2, 4);
+
+        println(10);
+        println(res);
+        println(x);
+        println(result);
+        println(add);
+
+    }
+
+}
+
+class SomeClass{
+    
+    Int computeSomething(Int s, Int y){
+        
+        Int t;
+        println(y);
+
+        t = s + y;
+
+        println("Hello World");
+        println(t);
+
+        return t;
+    }
+
+
+}
+
